@@ -26,28 +26,28 @@ jobs:
         format: "${major}.${minor}.${patch}-prerelease${increment}"
       id: version
             
-    - name: Docker login
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
-        echo "New version: $NEW_VERSION!!!!!!!"
+#    - name: Docker login
+#      env:
+#        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+#        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#        NEW_VERSION: ${{ steps.version.outputs.version }}
+#      run: |
+#        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+#        echo "New version: $NEW_VERSION!!!!!!!"
     
-    - name: Build Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker build -t gug11/docker-graphql:$NEW_VERSION .
-        docker build -t gug11/docker-graphql:latest .
+#    - name: Build Docker Image
+#      env:
+#        NEW_VERSION: ${{ steps.version.outputs.version }}
+#      run: |
+#        docker build -t gug11/docker-graphql:$NEW_VERSION .
+#        docker build -t gug11/docker-graphql:latest .
 
-    - name: Push Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker push gug11/docker-graphql:$NEW_VERSION
-        docker push gug11/docker-graphql:latest
+#    - name: Push Docker Image
+#      env:
+#        NEW_VERSION: ${{ steps.version.outputs.version }}
+#      run: |
+#        docker push gug11/docker-graphql:$NEW_VERSION
+#        docker push gug11/docker-graphql:latest
     
 #    - name: Build the Docker image
 #      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
